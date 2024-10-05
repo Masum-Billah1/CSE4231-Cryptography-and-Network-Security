@@ -1,17 +1,3 @@
-def power_mod(block,binary,product):
-    number = int(block)
-    array = []
-    array.append(number % product)
-    for i in range(1,len(binary)):
-        array.append(pow(array[i-1],2)% product)
-
-    result = 1
-    for i in range(len(binary)):
-        if(binary[i]=='1'):
-            result = (result*array[i])% product
-    return result
-
-
 with open('rsa.txt', 'r') as file:
     single_line = file.readline()
 print("Message: ",single_line)
@@ -25,10 +11,9 @@ e = int(79)
 p = int(47)
 q = int(71)
 product = p*q
-binary = bin(e)[2:][::-1]
 
 for i in range(len(blocks)):
-    encrypt.append(power_mod(blocks[i],binary,product))
+    encrypt.append(pow(int(blocks[i]),e)%product)
 
 print("Encryption: ",end='')
 for i in range(len(encrypt)):
